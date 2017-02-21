@@ -1,0 +1,3 @@
+include ':app', ':cap10.InputTest'
+include ':SimpleGameEngineV1'
+project(':SimpleGameEngineV1').projectDir = new File('../SimpleGameEngineV1/app/')
