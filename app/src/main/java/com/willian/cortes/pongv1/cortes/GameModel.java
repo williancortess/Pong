@@ -3,6 +3,7 @@ package com.willian.cortes.pongv1.cortes;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.graphics.RectF;
 
 import com.willian.cortes.simplegameenginev1.SGWorld;
 
@@ -13,6 +14,7 @@ import com.willian.cortes.simplegameenginev1.SGWorld;
  */
 
 public class GameModel extends SGWorld{
+    public final static int PADDLE_BBOX_PADDING = 3;
     public static final int BALL_ID = 0;
     public static final int OPPONENT_ID = 1;
     public static final int PLAYER_ID = 2;
@@ -47,6 +49,8 @@ public class GameModel extends SGWorld{
         tempDimensions.set(PADDLE_WIDTH, PADDLE_HEIGHT);
         mPlayer = new EntPlayer(this, tempPosition, tempDimensions);
         mPlayer.setDebugColor(Color.GREEN);
+        RectF bboxPadding = new RectF(0, 0, PADDLE_BBOX_PADDING, PADDLE_BBOX_PADDING); //Adicionando o padding nos paddles
+        mPlayer.setBBoxPadding(bboxPadding);
 
         // Paddle do oponente
         tempPosition.set(worldDimensions.x - (DISTANCE_FROM_EDGE + PADDLE_WIDTH),
@@ -54,6 +58,7 @@ public class GameModel extends SGWorld{
         tempDimensions.set(PADDLE_WIDTH, PADDLE_HEIGHT);
         mOpponent = new EntOpponent(this, tempPosition, tempDimensions);
         mOpponent.setDebugColor(Color.CYAN);
+        mOpponent.setBBoxPadding(bboxPadding);
     }
 
     //Indica os fatores de deslocamento nos eixo x / y
@@ -65,13 +70,15 @@ public class GameModel extends SGWorld{
         PointF playerDimensions = mPlayer.getDimensions();
         Point worldDimensions = getDimensions();
 
+        RectF tempBoundingBox = mPlayer.getBoundingBox();
+
         if(playerPosition.y < 0)
         {
             mPlayer.setPosition(playerPosition.x, 0);
         }
-        else if(playerPosition.y + playerDimensions.y > worldDimensions.y)
+        else if(tempBoundingBox.bottom > worldDimensions.y)
         {
-            mPlayer.setPosition(playerPosition.x, worldDimensions.y - playerDimensions.y);
+            mPlayer.setPosition(playerPosition.x, worldDimensions.y - (playerDimensions.y - PADDLE_BBOX_PADDING));
         }
     }
 

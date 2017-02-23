@@ -23,10 +23,11 @@ public class EntBall extends SGEntity{
     {
         move(mSpeed * elapsedTimeInSeconds, 0);
 
-        SGWorld world = getWorld();
+        GameModel world = (GameModel) getWorld();
         PointF position = getPosition();
         PointF dimensions = getDimensions();
 
+        //Verifica se a bola colidiu com um dos limites laterais
         if(position.x < 0)
         {
             setPosition(0, getPosition().y);
@@ -35,6 +36,21 @@ public class EntBall extends SGEntity{
         else if(position.x + dimensions.x > world.getDimensions().x)
         {
             setPosition(world.getDimensions().x - dimensions.x, getPosition().y);
+            mSpeed = -mSpeed;
+        }
+
+        //Verifica se a bola colidiu com algum paddle
+        EntOpponent opponent = world.getOpponent();
+        EntPlayer player = world.getPlayer();
+
+        if(world.collisionTest(getBoundingBox(), player.getBoundingBox()))
+        {
+            setPosition(player.getBoundingBox().right, position.y);
+            mSpeed = -mSpeed;
+        }
+        else if(world.collisionTest(getBoundingBox(), opponent.getBoundingBox()))
+        {
+            setPosition(opponent.getPosition().x - dimensions.x, position.y);
             mSpeed = -mSpeed;
         }
     }
