@@ -16,6 +16,8 @@ import com.willian.cortes.simplegameenginev1.SGImageFactory;
 import com.willian.cortes.simplegameenginev1.SGRenderer;
 import com.willian.cortes.simplegameenginev1.SGView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Willian on 11/02/2017.
  */
@@ -60,33 +62,55 @@ public class GameView extends SGView {
         SGRenderer renderer = getRenderer();
         renderer.beginDrawing(canvas, Color.BLACK);
 
-        if(mIsDebug == true)
+        ArrayList<SGEntity> entities = mModel.getEntities();
+
+        if(mIsDebug)
         {
-            SGEntity opponent = mModel.getOpponent();
-            renderer.drawRect(opponent.getPosition(), opponent.getDimensions(), opponent.getDebugColor());
-
-            SGEntity player = mModel.getPlayer();
-            renderer.drawRect(player.getPosition(), player.getDimensions(), player.getDebugColor());
-
-            SGEntity ball = mModel.getBall();
-            renderer.drawRect(ball.getPosition(), ball.getDimensions(), ball.getDebugColor());
+            for(SGEntity currentEntity : entities)
+            {
+                SGEntity.DebugDrawingStyle style = currentEntity.getDebugDrawingStyle();
+                if(style == SGEntity.DebugDrawingStyle.FILLED)
+                {
+                    renderer.drawRect(currentEntity.getBoundingBox(), currentEntity.getDebugColor());
+                }
+                else
+                {
+                    renderer.drawOutlineRect(currentEntity.getBoundingBox(), currentEntity.getDebugColor());
+                }
+            }
         }
         else
         {
-            mTempSrcRect.set(0, 0, GameModel.PADDLE_WIDTH, GameModel.PADDLE_HEIGHT);
-            SGEntity opponent = mModel.getOpponent();
-            renderer.drawImage(mOpponentImage, mTempSrcRect, opponent.getPosition(), opponent.getDimensions());
-
-            mTempSrcRect.set(0, 0, GameModel.PADDLE_WIDTH, GameModel.PADDLE_HEIGHT);
-            SGEntity player = mModel.getPlayer();
-            renderer.drawImage(mPlayerImage, mTempSrcRect, player.getPosition(), player.getDimensions());
-
-            mTempSrcRect.set(0, 0, GameModel.BALL_SIZE, GameModel.BALL_SIZE);
-            SGEntity ball = mModel.getBall();
-            renderer.drawImage(mBallImage, mTempSrcRect, ball.getPosition(), ball.getDimensions());
+            for(SGEntity currentEntity : entities)
+            {
+                if(currentEntity.getCategory() != "trigger")
+                {
+                    if(currentEntity.getId() == GameModel.PLAYER_ID)
+                    {
+                        mTempSrcRect.set(0, 0, GameModel.PADDLE_WIDTH, GameModel.PADDLE_HEIGHT);
+                        renderer.drawImage(mPlayerImage, mTempSrcRect,
+                                currentEntity.getPosition(),
+                                currentEntity.getDimensions());
+                    }
+                    else if(currentEntity.getId() == GameModel.OPPONENT_ID)
+                    {
+                        mTempSrcRect.set(0, 0, GameModel.PADDLE_WIDTH, GameModel.PADDLE_HEIGHT);
+                        renderer.drawImage(mOpponentImage, mTempSrcRect,
+                                currentEntity.getPosition(),
+                                currentEntity.getDimensions());
+                    }
+                    else // (currentEntity.getId() == GameModel.BALL_ID)
+                    {
+                        mTempSrcRect.set(0, 0, GameModel.BALL_SIZE, GameModel.BALL_SIZE);
+                        renderer.drawImage(mBallImage, mTempSrcRect,
+                                currentEntity.getPosition(),
+                                currentEntity.getDimensions());
+                    }
+                }
+            }
         }
-
         renderer.endDrawing();
+    }
     }
 
 //    protected void setup()
@@ -120,7 +144,3 @@ public class GameView extends SGView {
 //                viewCenter.y + halfPaddleHeight); // Base
 //    }
 
-
-
-
-}

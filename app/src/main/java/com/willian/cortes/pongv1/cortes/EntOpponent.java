@@ -26,15 +26,17 @@ public class EntOpponent extends  EntPaddle{
         PointF dimensions = getDimensions();
         SGWorld world = getWorld();
 
+        float bboxPaddingBottom = getBBoxPadding().bottom;
+
         if(position.y < 0)
         {
             setPosition(getPosition().x, 0);
-            mSpeed = -mSpeed;
+            //mSpeed = -mSpeed;
         }
-        else if(position.y + dimensions.y >= world.getDimensions().y)
+        else if(getBoundingBox().bottom >= world.getDimensions().y)
         {
-            position.y = world.getDimensions().y - dimensions.y;
-            mSpeed = -mSpeed;
+            position.y = world.getDimensions().y - (dimensions.y - bboxPaddingBottom);
+            //mSpeed = -mSpeed;
         }
     }
 
