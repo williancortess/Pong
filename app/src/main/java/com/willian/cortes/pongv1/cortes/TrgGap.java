@@ -27,11 +27,11 @@ public class TrgGap extends SGTrigger{
         entity.setPosition(entity.getPosition().x, GAP_SIZE);
 
         //Caso seja o paddle do oponente sua velocidade sera invertida
-        if(entity.getId() == GameModel.OPPONENT_ID)
-        {
+//        if(entity.getId() == GameModel.OPPONENT_ID)
+//        {
             //Convertendo o entety em EntOpponent para acessar getSpeed() e setSpeed()
-            EntOpponent opponent = (EntOpponent)entity;
-            opponent.setSpeed(-opponent.getSpeed());
-        }
+//            EntOpponent opponent = (EntOpponent)entity;
+//            opponent.setSpeed(-opponent.getSpeed());
+//        }
     }
 }

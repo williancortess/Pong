@@ -31,7 +31,7 @@ public class TrgLowerWall extends SGTrigger
         {
             EntOpponent opponent = (EntOpponent)entity;
             opponent.setPosition(entity.getPosition().x, worldDimensions.y - entity.getDimensions().y);
-            opponent.setSpeed(-opponent.getSpeed());
+//            opponent.setSpeed(-opponent.getSpeed());
         }
         else // (entity.getId() == GameModel.BALL_ID)
         {

@@ -25,6 +25,11 @@ public class TrgRightGoal extends SGTrigger
 
         model.increasePlayerScore();
 
+        //Aumenta a dificuldade a cada ponto marcado
+        EntOpponent opponent = model.getOpponent();
+        opponent.calculateSpeed(model.getPlayerScore());
+        opponent.decreaseReaction();
+
         Log.d("PongV2", "Jogador marca um ponto!");
         model.logScore();
 

@@ -1,9 +1,5 @@
 [
     {
-        "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_light.xml",
-        "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_google_signin_btn_icon_light.xml"
-    },
-    {
         "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
         "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\drawable\\abc_ic_menu_overflow_material.xml"
     },
@@ -14,10 +10,6 @@
     {
         "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
         "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\drawable\\abc_ratingbar_small_material.xml"
-    },
-    {
-        "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\common_plus_signin_btn_icon_dark.xml",
-        "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_plus_signin_btn_icon_dark.xml"
     },
     {
         "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
@@ -66,10 +58,6 @@
     {
         "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
         "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\drawable\\abc_ic_voice_search_api_material.xml"
-    },
-    {
-        "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_dark.xml",
-        "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_google_signin_btn_text_dark.xml"
     },
     {
         "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
@@ -124,10 +112,6 @@
         "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
-        "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_light.xml",
-        "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_google_signin_btn_text_light.xml"
-    },
-    {
         "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
         "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\drawable\\abc_ratingbar_indicator_material.xml"
     },
@@ -144,20 +128,12 @@
         "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\drawable\\abc_seekbar_thumb_material.xml"
     },
     {
-        "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\common_plus_signin_btn_text_dark.xml",
-        "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_plus_signin_btn_text_dark.xml"
-    },
-    {
         "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
         "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\drawable\\abc_edit_text_material.xml"
     },
     {
         "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
         "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\drawable\\notification_bg_low.xml"
-    },
-    {
-        "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_dark.xml",
-        "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_google_signin_btn_icon_dark.xml"
     },
     {
         "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
@@ -168,19 +144,11 @@
         "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\drawable\\abc_btn_check_material.xml"
     },
     {
-        "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\common_plus_signin_btn_text_light.xml",
-        "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_plus_signin_btn_text_light.xml"
-    },
-    {
         "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
         "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\drawable\\abc_vector_test.xml"
     },
     {
         "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
         "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.0\\res\\drawable\\abc_btn_borderless_material.xml"
-    },
-    {
-        "merged": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\res\\merged\\debug\\drawable\\common_plus_signin_btn_icon_light.xml",
-        "source": "C:\\Users\\Willian\\Desktop\\WorkLivro\\PongV1\\cap10.InputTest\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_plus_signin_btn_icon_light.xml"
     }
 ]
