@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.willian.cortes.pongv1"
+        applicationId "com.willian.cortes.pong"
         minSdkVersion 10
         targetSdkVersion 25
         versionCode 1
