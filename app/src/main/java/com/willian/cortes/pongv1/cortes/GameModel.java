@@ -236,15 +236,17 @@ public class GameModel extends SGWorld{
         mOpponent.setPosition(mOpponent.getPosition().x, paddlePositionY);
         mPlayer.setPosition(mPlayer.getPosition().x, paddlePositionY);
 
+        _calculateBallAngle();
+
         //Random para a bola iniciar para esquerda ou direita
-        if(mRandom.nextInt(2) == 0)
-        {
-            mBall.setVelocity(-90.0f, 90.0f);
-        }
-        else
-        {
-            mBall.setVelocity(90.0f, 90.0f);
-        }
+//        if(mRandom.nextInt(2) == 0)
+//        {
+//            mBall.setVelocity(-90.0f, 90.0f);
+//        }
+//        else
+//        {
+//            mBall.setVelocity(90.0f, 90.0f);
+//        }
     }
 
     //Indica os fatores de deslocamento nos eixo x / y
@@ -266,6 +268,41 @@ public class GameModel extends SGWorld{
         {
             mPlayer.setPosition(playerPosition.x, worldDimensions.y - (playerDimensions.y - PADDLE_BBOX_PADDING));
         }
+    }
+
+    //Anglo inicial da bola
+    private void _calculateBallAngle()
+    {
+        //Gera valor aleatorio de 0 a 3
+        int chooseSide = mRandom.nextInt(4);
+        int angle;
+
+        if(chooseSide == 0) // Superior direito
+        {
+            //Gera valor de 0 a 15
+            angle = mRandom.nextInt(16);
+        }
+        else if(chooseSide == 1) // Superior esquerdo
+        {
+            angle = mRandom.nextInt(16) + 165; //Soma o valor equivalente ao angulo inicial
+        }
+        else if(chooseSide == 2) // Inferior esquerdo
+        {
+            angle = mRandom.nextInt(16) + 180;
+        }
+        else // chooseSide == 3, inferior direito
+        {
+            angle = mRandom.nextInt(16) + 345;
+        }
+
+
+        mBall.setPosition(getDimensions().x / 2 - mBall.getDimensions().x / 2,
+                getDimensions().y / 2 - mBall.getDimensions().y / 2);
+
+        float ballSpeed = mBall.calculateSpeed(mPlayerScore);
+        float radian = (float)(angle * (Math.PI / 180));
+        mBall.setVelocity(ballSpeed * (float) Math.cos(radian),
+                ballSpeed * (float)Math.sin(radian));
     }
 
     public EntBall      getBall() { return mBall; }
