@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.view.View;
 
 import com.willian.cortes.pongv1.R;
 import com.willian.cortes.simplegameenginev1.SGImage;

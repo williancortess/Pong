@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.willian.cortes.pongv1.R;
 import com.willian.cortes.simplegameenginev1.SGActivity;
 import com.willian.cortes.simplegameenginev1.SGPreferences;
 
