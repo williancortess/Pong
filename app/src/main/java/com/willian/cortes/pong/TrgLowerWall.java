@@ -38,6 +38,15 @@ public class TrgLowerWall extends SGTrigger
             EntBall ball = (EntBall)entity;
             ball.setPosition(ball.getPosition().x, worldDimensions.y - ball.getDimensions().y);
             ball.setVelocity(ball.getVelocity().x, -ball.getVelocity().y);
+
+            if(ball.getVelocity().x > 0)
+            {
+                addFlags(EntBall.STATE_ROLL_CW);
+            }
+            else
+            {
+                removeFlags(EntBall.STATE_ROLL_CW);
+            }
         }
     }
 }

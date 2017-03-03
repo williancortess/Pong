@@ -19,15 +19,29 @@ public class TrgLeftGoal extends SGTrigger
     }
 
     @Override
-    public void onHit(SGEntity entity, float elapsedTimeInSeconds)
-    {
-        GameModel model = (GameModel)getWorld();
+    public void onHit(SGEntity entity, float elapsedTimeInSeconds) {
+        if (isActive()) {
 
+
+        GameModel model = (GameModel) getWorld();
         model.increaseOpponentScore();
+
+            //Controla a flg de humor do player
+            if(model.getOpponentScore() == 2)
+            {
+                model.getPlayer().addFlags(EntPaddle.STATE_CONCERNED);
+                model.getPlayer().removeFlags(EntPaddle.STATE_HAPPY);
+            }
+            else if(model.getOpponentScore() == 4)
+            {
+                model.getPlayer().addFlags(EntPaddle.STATE_ANGRY);
+                model.getPlayer().removeFlags(EntPaddle.STATE_CONCERNED);
+            }
 
         Log.d("PongV2", "Oponente marca um ponto!");
         model.logScore();
 
         model.setCurrentState(GameModel.STATE_GOAL);
+    }
     }
 }

@@ -12,6 +12,7 @@ import com.willian.cortes.simplegameenginev1.SGWorld;
 
 public class EntBall extends SGEntity {
     private static final float MAX_SPEED = 480.0f;
+    public static final int     STATE_ROLL_CW   = 0x01;//CW = Setido horario - clock wise
 
     //Usa as tabelas de pesquisa para guardar senos e cossenos pre calculados
     private float mCosTable[] = new float[10];
@@ -52,6 +53,8 @@ public class EntBall extends SGEntity {
 
         mVelocity.x = mSpeed * mCosTable[0];
         mVelocity.y = mSpeed * mSinTable[0];
+
+        addFlags(STATE_ROLL_CW);
 
         //Multiplica o angulo pelo ftor de conversao
 //        float angleInradians = 50 * radianFactor;
@@ -124,13 +127,44 @@ public class EntBall extends SGEntity {
             {
                 setPosition(paddleBB.right, ballPositionY);
                 mVelocity.x = mSpeed * mCosTable[sector];
+
+                player.addFlags(EntPaddle.STATE_HIT);
+                opponent.removeFlags(EntPaddle.STATE_HIT);
+
+                if(sector <= 4)
+                {
+                    removeFlags(EntBall.STATE_ROLL_CW);
+                }
+                else
+                {
+                    addFlags(EntBall.STATE_ROLL_CW);
+                }
             }
-            else // Paddle do oponente
+            else if(collidedPaddle.getId() == GameModel.OPPONENT_ID)// Paddle do oponente
             {
                 //Modifica a posicao
                 setPosition(paddleBB.left - ballDimensionX, ballPositionY);
                 //Modifica a projecao no eixo X
                 mVelocity.x = -(mSpeed * mCosTable[sector]);
+
+                opponent.addFlags(EntPaddle.STATE_HIT);
+                player.removeFlags(EntPaddle.STATE_HIT);
+
+                if(sector <= 4)
+                {
+                    addFlags(EntBall.STATE_ROLL_CW);
+                }
+                else
+                {
+                    removeFlags(EntBall.STATE_ROLL_CW);
+                }
+
+            }
+
+            else
+            {
+                opponent.removeFlags(EntPaddle.STATE_HIT);
+                player.removeFlags(EntPaddle.STATE_HIT);
             }
             //Modifica a projecao no eixo Y
             mVelocity.y = -(mSpeed * mSinTable[sector]);

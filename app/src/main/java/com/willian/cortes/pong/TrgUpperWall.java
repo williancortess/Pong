@@ -29,5 +29,14 @@ public class TrgUpperWall extends SGTrigger
 
         ball.setPosition(ball.getPosition().x, 0);
         ball.setVelocity(ballVelocity.x, -ballVelocity.y);
+
+        if(ball.getVelocity().x > 0)
+        {
+            removeFlags(EntBall.STATE_ROLL_CW);
+        }
+        else
+        {
+            addFlags(EntBall.STATE_ROLL_CW);
+        }
     }
 }

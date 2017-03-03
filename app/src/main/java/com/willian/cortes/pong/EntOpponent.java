@@ -45,6 +45,19 @@ public class EntOpponent extends EntPaddle {
         } else if(reactionBottom < ballCenterY){
             move(0, mSpeed * elapsedTimeInSeconds);
         }
+
+        //Indica se o opponent esta olhando pra cima ou pra baixo
+        float opponentHeight = getBoundingBox().bottom - getBoundingBox().top;
+        float opponentCenterY = (getPosition().y + (opponentHeight / 2));
+
+        if(opponentCenterY > ballCenterY)
+        {
+            addFlags(EntPaddle.STATE_LOOKING_UP);
+        }
+        else
+        {
+            removeFlags(EntPaddle.STATE_LOOKING_UP);
+        }
     }
 
     public void decreaseReaction()
