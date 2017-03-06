@@ -38,5 +38,8 @@ public class TrgUpperWall extends SGTrigger
         {
             addFlags(EntBall.STATE_ROLL_CW);
         }
+
+        ball.setHasCollided(true);
+        ball.setCollisionType(EntBall.COLLISION_EDGE);
     }
 }

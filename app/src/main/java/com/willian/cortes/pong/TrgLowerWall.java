@@ -47,6 +47,9 @@ public class TrgLowerWall extends SGTrigger
             {
                 removeFlags(EntBall.STATE_ROLL_CW);
             }
+
+            ball.setHasCollided(true);
+            ball.setCollisionType(EntBall.COLLISION_EDGE);
         }
     }
 }

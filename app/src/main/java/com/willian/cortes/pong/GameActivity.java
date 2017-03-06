@@ -63,4 +63,28 @@ public class GameActivity extends SGActivity{
             setInputPublisher(inputPublisher);
         }
     }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        mView.getMusicPlayer().release();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+
+        mView.getMusicPlayer().pause();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        mView.getMusicPlayer().resume();
+    }
 }

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Pong</string>
+    <string name="start">Start!</string>
+    <string name="player">Player</string>
+    <string name="opponent">Opponent</string>
+    <string name="scores">Scores!</string>
+    <string name="difficulty_level">Difficulty level:</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="game_over">Game Over!</string>
+    <string name="paused">Paused</string>
+    <string name="loading">Loading...</string>
 </resources>

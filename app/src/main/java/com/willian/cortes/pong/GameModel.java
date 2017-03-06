@@ -54,6 +54,8 @@ public class GameModel extends SGWorld{
     private int                 mCurrentState; //Guarda o estado atual do modelo
     private int                 mOpponentScore;
     private int                 mPlayerScore;
+    private int                 mWhoScored; //Armazena o ID do paddle que marcou o ponto
+
     Random                      mRandom = new Random();
     private StringBuilder       mStringBuilder = new StringBuilder();//Printa mensagens no LogCat
 
@@ -171,6 +173,8 @@ public class GameModel extends SGWorld{
             //Verifica se o timer foi iniciado
             if(!mGoalTimer.hasStarted())
             {
+                mBall.setHasCollided(false);
+                mBall.setCollisionType(EntBall.COLLISION_NONE);
                 mGoalTimer.start();
             }
 
@@ -312,8 +316,10 @@ public class GameModel extends SGWorld{
     public int          getCurrentState() { return mCurrentState; }
     public int          getOpponentScore() { return mOpponentScore; }
     public int          getPlayerScore() { return mPlayerScore; }
+    public int          getWhoScored(){return  mWhoScored;}
 
     public void         setCurrentState(int state) { mCurrentState = state; }
+    public void         setWhoScored(int whoScored){mWhoScored = whoScored;}
 
     public void         increaseOpponentScore() { mOpponentScore++; }
     public void         increasePlayerScore() { mPlayerScore++; }

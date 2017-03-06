@@ -11,8 +11,17 @@ import com.willian.cortes.simplegameenginev1.SGWorld;
  */
 
 public class EntBall extends SGEntity {
+    //Estados de colisao para os sons
+    public static final int     COLLISION_NONE = 0;//Sem colisao
+    public static final int     COLLISION_EDGE = 1;//Colicao com uma das bordas do campo
+    public static final int     COLLISION_OPPONENT = 2;//Colisao com o paddle do opponent
+    public static final int     COLLISION_PLAYER = 3;
+
     private static final float MAX_SPEED = 480.0f;
     public static final int     STATE_ROLL_CW   = 0x01;//CW = Setido horario - clock wise
+
+    private int		mCollisionType;
+    private boolean	mHasCollided;
 
     //Usa as tabelas de pesquisa para guardar senos e cossenos pre calculados
     private float mCosTable[] = new float[10];
@@ -125,6 +134,9 @@ public class EntBall extends SGEntity {
             //Verifica qual paddle foi atingido
             if(collidedPaddle.getId() == GameModel.PLAYER_ID)
             {
+                mHasCollided = true;
+                mCollisionType = COLLISION_PLAYER;
+
                 setPosition(paddleBB.right, ballPositionY);
                 mVelocity.x = mSpeed * mCosTable[sector];
 
@@ -142,6 +154,9 @@ public class EntBall extends SGEntity {
             }
             else if(collidedPaddle.getId() == GameModel.OPPONENT_ID)// Paddle do oponente
             {
+                mHasCollided = true;
+                mCollisionType = COLLISION_OPPONENT;
+
                 //Modifica a posicao
                 setPosition(paddleBB.left - ballDimensionX, ballPositionY);
                 //Modifica a projecao no eixo X
@@ -169,9 +184,23 @@ public class EntBall extends SGEntity {
             //Modifica a projecao no eixo Y
             mVelocity.y = -(mSpeed * mSinTable[sector]);
         }
+
+        if(mHasCollided)
+        {
+            mHasCollided = false;
+        }
+        else
+        {
+            mCollisionType = COLLISION_NONE;
+        }
     }
 
+    public int getCollisionType() { return mCollisionType; }
     public PointF getVelocity() { return mVelocity; }
 
+    public boolean hasCollided() { return mHasCollided; }
+
+    public void setCollisionType(int collisionType) { mCollisionType = collisionType; }
+    public void setHasCollided(boolean hasCollided) { mHasCollided = hasCollided; }
     public void setVelocity(float speedX, float speedY) { mVelocity.set(speedX, speedY); }
 }

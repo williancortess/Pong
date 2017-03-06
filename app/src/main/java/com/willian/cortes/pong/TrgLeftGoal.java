@@ -42,6 +42,8 @@ public class TrgLeftGoal extends SGTrigger
         model.logScore();
 
         model.setCurrentState(GameModel.STATE_GOAL);
+
+        model.setWhoScored(GameModel.OPPONENT_ID);
     }
     }
 }
