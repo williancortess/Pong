@@ -58,7 +58,7 @@ public class GameActivity extends SGActivity{
             setContentView(mView);
 
             SGInputPublisher inputPublisher = new SGInputPublisher(this);
-            mController = new GameController(mModel);
+            mController = new GameController(mModel, mView);
             inputPublisher.registerSubscriber(mController);
             setInputPublisher(inputPublisher);
         }

@@ -1,5 +1,6 @@
 package com.willian.cortes.pong;
 
+import android.graphics.PointF;
 import android.view.MotionEvent;
 
 import com.willian.cortes.simplegameenginev1.SGInputSubscriber;
@@ -11,10 +12,12 @@ import com.willian.cortes.simplegameenginev1.SGInputSubscriber;
 public class GameController implements SGInputSubscriber
 {
     private GameModel mModel;
+    private GameView mView;
 
-    public GameController(GameModel model)
+    public GameController(GameModel model, GameView view)
     {
         mModel = model;
+        mView = view;
     }
 
     @Override
@@ -28,7 +31,8 @@ public class GameController implements SGInputSubscriber
     {
         if(mModel.getCurrentState() == GameModel.STATE_RUNNING)
         {
-            mModel.movePlayer(-distanceX, -distanceY);
+            PointF scalingFactor = mView.getRenderer().getViewport().getScalingFactor();
+            mModel.movePlayer(-distanceX / scalingFactor.x, -distanceY / scalingFactor.y);
         }
     }
 

@@ -23,6 +23,7 @@ import com.willian.cortes.simplegameenginev1.SGSpriteDesc;
 import com.willian.cortes.simplegameenginev1.SGText;
 import com.willian.cortes.simplegameenginev1.SGTileset;
 import com.willian.cortes.simplegameenginev1.SGView;
+import com.willian.cortes.simplegameenginev1.SGViewport;
 
 import java.util.ArrayList;
 
@@ -103,6 +104,11 @@ public class GameView extends SGView {
 
     @Override
     public void setup() {
+        //Cria a viewport
+        Point viewDimensions = getDimensions();
+        SGViewport viewport = new SGViewport(mModel.getDimensions(), viewDimensions, SGViewport.ScalingMode.FULL_SCREEN_KEEP_ORIGINAL_ASPECT);
+        getRenderer().setViewport(viewport);
+
         mModel.setup(); //Invoca o setup da classe GameModel
 
         // Campo
@@ -224,7 +230,10 @@ public class GameView extends SGView {
         mModel.step(elapsedTimeInSeconds);
 
         SGRenderer renderer = getRenderer();
-        renderer.beginDrawing(canvas, Color.BLACK);
+
+        int screenColor = Color.LTGRAY;
+        int viewportColor = Color.BLACK;
+        renderer.beginDrawing(canvas, screenColor, viewportColor);
 
         ArrayList<SGEntity> entities = mModel.getEntities();
 
