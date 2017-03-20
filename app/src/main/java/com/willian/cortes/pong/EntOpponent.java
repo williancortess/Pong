@@ -10,16 +10,23 @@ import com.willian.cortes.simplegameenginev1.SGWorld;
  */
 
 public class EntOpponent extends EntPaddle {
+    private int     mDifficultyOffset = 0;
+
     public static final float MIN_REACTION = 30;
     public static final float MAX_SPEED = 300;
 
     private float mReaction;
     private float mSpeed;
 
-    public EntOpponent(SGWorld world, PointF position, PointF dimensions)
+    public EntOpponent(SGWorld world, PointF position, PointF dimensions, int difficultyOffset)
     {
         super(world, GameModel.OPPONENT_ID, position, dimensions);
-//        mSpeed = 120.0f;
+        mDifficultyOffset = difficultyOffset;
+        for(int i = 0; i < mDifficultyOffset; i++)
+        {
+            decreaseReaction(); //Tempo de resposta do oponente
+        }
+
         //Velocidade inicial do oponente
         calculateSpeed(0);
         mReaction = dimensions.y / 2; //Metade da altura do paddle
@@ -75,7 +82,7 @@ public class EntOpponent extends EntPaddle {
 
     public void calculateSpeed(int playerScore)
     {
-        float playerScoreSqr = (playerScore + 5) * (playerScore + 5);
+        float playerScoreSqr = (playerScore + 5 + mDifficultyOffset) * (playerScore + 5 + mDifficultyOffset);
         mSpeed = (playerScoreSqr / (150 + playerScoreSqr)) * MAX_SPEED;
     }
 

@@ -11,4 +11,9 @@
     <string name="game_over">Game Over!</string>
     <string name="paused">Paused</string>
     <string name="loading">Loading...</string>
+
+    <string name="dialog_game_message">Are you sure you want to quit the match?</string>
+    <string name="dialog_start_screen_message">Are you sure you want to quit the game?</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
 </resources>

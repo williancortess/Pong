@@ -20,6 +20,9 @@ import java.util.Random;
  */
 
 public class GameModel extends SGWorld{
+    public static final int     SCENE_WIDTH = 480;
+    public static final int     SCENE_HEIGHT = 320;
+
     public final static int PADDLE_BBOX_PADDING = 3;
     public static final int BALL_ID = 0;
     public static final int OPPONENT_ID = 1;
@@ -51,6 +54,7 @@ public class GameModel extends SGWorld{
     private EntOpponent 	mOpponent;
     private EntPlayer		mPlayer;
 
+    private int                 mDifficultyLevel;
     private int                 mCurrentState; //Guarda o estado atual do modelo
     private int                 mOpponentScore;
     private int                 mPlayerScore;
@@ -66,9 +70,13 @@ public class GameModel extends SGWorld{
     private TrgRightGoal        mRightGoal;
     private TrgUpperWall        mUpperWall;
 
-    public GameModel(Point worldDimensions)
+    private int                 mPreviousState;
+
+    public GameModel(Point worldDimensions, int difficultyLevel)
     {
         super(worldDimensions);
+
+        mDifficultyLevel = difficultyLevel;
     }
 
     public void setup()
@@ -82,7 +90,7 @@ public class GameModel extends SGWorld{
         PointF tempPosition = new PointF((worldDimensions.x / 2) - (BALL_SIZE / 2),
                 (worldDimensions.y / 2) - (BALL_SIZE / 2));
         PointF tempDimensions = new PointF(BALL_SIZE, BALL_SIZE);
-        mBall = new EntBall(this, tempPosition, tempDimensions);
+        mBall = new EntBall(this, tempPosition, tempDimensions, mDifficultyLevel);
 
         mEntities.add(mBall);
 
@@ -101,7 +109,7 @@ public class GameModel extends SGWorld{
         tempPosition.set(worldDimensions.x - (DISTANCE_FROM_EDGE + PADDLE_WIDTH),
                 (worldDimensions.y / 2) - (PADDLE_HEIGHT / 2));
         tempDimensions.set(PADDLE_WIDTH, PADDLE_HEIGHT);
-        mOpponent = new EntOpponent(this, tempPosition, tempDimensions);
+        mOpponent = new EntOpponent(this, tempPosition, tempDimensions, mDifficultyLevel);
         mOpponent.setDebugColor(Color.CYAN);
         mOpponent.setBBoxPadding(bboxPadding);
 
@@ -251,6 +259,17 @@ public class GameModel extends SGWorld{
 //        {
 //            mBall.setVelocity(90.0f, 90.0f);
 //        }
+    }
+
+    public void pause()
+    {
+        mPreviousState = mCurrentState;
+        mCurrentState = STATE_PAUSED;
+    }
+
+    public void unpause()
+    {
+        mCurrentState = mPreviousState;
     }
 
     //Indica os fatores de deslocamento nos eixo x / y

@@ -13,6 +13,7 @@ import android.util.Log;
 import com.willian.cortes.simplegameenginev1.SGAnimation;
 import com.willian.cortes.simplegameenginev1.SGEntity;
 import com.willian.cortes.simplegameenginev1.SGFont;
+import com.willian.cortes.simplegameenginev1.SGGui;
 import com.willian.cortes.simplegameenginev1.SGImage;
 import com.willian.cortes.simplegameenginev1.SGImageFactory;
 import com.willian.cortes.simplegameenginev1.SGMusicPlayer;
@@ -24,6 +25,10 @@ import com.willian.cortes.simplegameenginev1.SGText;
 import com.willian.cortes.simplegameenginev1.SGTileset;
 import com.willian.cortes.simplegameenginev1.SGView;
 import com.willian.cortes.simplegameenginev1.SGViewport;
+import com.willian.cortes.simplegameenginev1.SGWidget;
+import com.willian.cortes.simplegameenginev1.SGWidgetButton;
+import com.willian.cortes.simplegameenginev1.SGWidgetContainer;
+import com.willian.cortes.simplegameenginev1.SGWidgetLabel;
 
 import java.util.ArrayList;
 
@@ -42,28 +47,6 @@ public class GameView extends SGView {
     private boolean mIsDebug = false;
     private GameModel mModel;
     private Rect mTempSrcRect = new Rect();
-//    private SGImage         mBallImage;
-//    private SGImage 		mOpponentImage;
-//    private SGImage 		mPlayerImage;
-
-    /*private SGTileset mTsetBall;
-    private SGTileset mTsetOpponent;
-    private SGTileset mTsetPlayer;
-
-    private SGAnimation		mAnimBallCCW;
-    private SGAnimation		mAnimBallCW;
-    private SGAnimation		mAnimOpponentDownAngry;
-    private SGAnimation		mAnimOpponentDownConcerned;
-    private SGAnimation		mAnimOpponentDownHappy;
-    private SGAnimation     mAnimOpponentUpAngry;
-    private SGAnimation		mAnimOpponentUpConcerned;
-    private SGAnimation		mAnimOpponentUpHappy;
-    private SGAnimation     mAnimPlayerDownAngry;
-    private SGAnimation		mAnimPlayerDownConcerned;
-    private SGAnimation		mAnimPlayerDownHappy;
-    private SGAnimation		mAnimPlayerUpAngry;
-    private SGAnimation		mAnimPlayerUpConcerned;
-    private SGAnimation		mAnimPlayerUpHappy;*/
 
     private SGImage		    mImgField; //Campo - imagem de fundo
     private Rect			mTempRectSrc = new Rect();
@@ -77,11 +60,6 @@ public class GameView extends SGView {
     private SGSprite		mSprOpponent;
     private SGSprite        mSprPlayer;
 
-    private SGText mTxtGameOver;
-    private SGText mTxtOpponent;
-    private SGText mTxtPlayer;
-    private SGText mTxtScores;
-    private SGText mTxtStart;
     private SGFont mFntVisitorBig; //Representa a fonte Visitor com caracteres grandes 32 pixels
     private SGFont mFntVisitorSmall; //Representa a fonte Visitor com caracteres pequenos 16 pixels
     private PointF mTempPosition = new PointF(); //Armazena a posicao de um texto
@@ -89,6 +67,23 @@ public class GameView extends SGView {
     private SGMusicPlayer   mMusicPlayer;
     private SGSoundPool     mSoundPool;
     private int 			mSounds[] = new int[3];
+
+    private SGGui               mGui;
+    private SGWidgetButton      mBtnPause;
+    private SGWidgetContainer	mCtnrInfo;
+    private SGWidgetContainer mCtnrScore;
+    private SGWidgetLabel 		mLblLowerInfo;
+    private SGWidgetLabel 		mLblOpponentScore;
+    private SGWidgetLabel 		mLblPlayerScore;
+    private SGWidgetLabel mLblUpperInfo;
+    private String 				mStrGameOver;
+    private String 				mStrOpponent;
+    private String 				mStrOpponentScore;
+    private String 				mStrPaused;
+    private String 				mStrPlayer;
+    private String 				mStrPlayerScore;
+    private String 				mStrScores;
+    private String 				mStrStart;
 
     private GameView(Context context) {
         super(context);
@@ -100,6 +95,8 @@ public class GameView extends SGView {
 
         mSoundPool = new SGSoundPool(context);
         mMusicPlayer = new SGMusicPlayer(context);
+
+        mGui = new SGGui(getRenderer(), mModel.getDimensions());
     }
 
     @Override
@@ -197,14 +194,6 @@ public class GameView extends SGView {
 
         mSprPlayer = new SGSprite(mSprPlayerDesc, mModel.getPlayer());
 
-        Resources contextResources = getContext().getResources();
-
-        mTxtGameOver = new SGText(contextResources.getString(R.string.game_over));
-        mTxtOpponent = new SGText(contextResources.getString(R.string.opponent));
-        mTxtPlayer = new SGText(contextResources.getString(R.string.player));
-        mTxtScores = new SGText(contextResources.getString(R.string.scores));
-        mTxtStart = new SGText(contextResources.getString(R.string.start));
-
         SGImageFactory imageFactory = getImageFactory();
         SGImage imgFontVisitor = imageFactory.createImage("fonts/font_visitor_white.png");
         Point tilesNum = new Point(16, 16);
@@ -221,6 +210,84 @@ public class GameView extends SGView {
         // Música
         mMusicPlayer.loadMusic("sounds/bgm.ogg");
         mMusicPlayer.play(true, 1.0f, 1.0f);
+
+
+        // GUI
+        mStrPlayerScore = "0";
+        mStrOpponentScore = "0";
+
+        SGWidgetContainer guiRoot = mGui.getRoot();
+
+        PointF position = new PointF();
+        PointF dimensions = new PointF();
+
+        // Contêiner - Placar
+        position.set(0, 0);
+        dimensions.set(0, 0); // Inicialmente sem dimensões
+        mCtnrScore = new SGWidgetContainer(SGWidget.Alignment.Center, position, dimensions);
+        guiRoot.addChild("score", mCtnrScore);
+
+        // Placar do jogador
+        position.set(-80, 14);
+        mLblPlayerScore = new SGWidgetLabel(SGWidget.Alignment.Center, position, mFntVisitorBig, mStrPlayerScore);
+        mCtnrScore.addChild("player_score", mLblPlayerScore);
+
+        // Placar do oponente
+        position.set(80, 14);
+        mLblOpponentScore = new SGWidgetLabel(SGWidget.Alignment.Center, position, mFntVisitorBig, mStrOpponentScore);
+        mCtnrScore.addChild("opponent_score", mLblOpponentScore);
+
+        // Textos informativos
+        Context context = getContext();
+        mStrGameOver = context.getResources().getString(R.string.game_over);
+        mStrOpponent = context.getResources().getString(R.string.opponent);
+        mStrPaused = context.getResources().getString(R.string.paused);
+        mStrPlayer = context.getResources().getString(R.string.player);
+        mStrScores = context.getResources().getString(R.string.scores);
+        mStrStart = context.getResources().getString(R.string.start);
+
+        // Contêiner - Info
+        position.set(0, 0);
+        dimensions.set(0, 0); // Inicialmente sem dimensões
+        mCtnrInfo = new SGWidgetContainer(SGWidget.Alignment.Center, position, dimensions);
+        guiRoot.addChild("info", mCtnrInfo);
+
+        // Informações - Superior
+        position.set(0, 80);
+        mLblUpperInfo = new SGWidgetLabel(SGWidget.Alignment.Center, position, mFntVisitorSmall, "");
+        mCtnrInfo.addChild("upper_info", mLblUpperInfo);
+
+        // Informações - Inferior
+        position.set(0, 100);
+        mLblLowerInfo = new SGWidgetLabel(SGWidget.Alignment.Center, position, mFntVisitorBig, mStrScores);
+        mCtnrInfo.addChild("lower_info", mLblLowerInfo);
+
+        // Botão de pausa
+        tilesNum = new Point(2, 1);
+        tileset = new SGTileset(imageFactory.createImage("gui/button_pause.png"), tilesNum, null);
+        position.set(0, 16);
+        dimensions.set(32, 32);
+        mBtnPause =
+                new SGWidgetButton(SGWidget.Alignment.Center, position, dimensions, tileset, mGui)
+                {
+                    @Override
+                    public boolean onUp(PointF position)
+                    {
+                        if(mModel.getCurrentState() != GameModel.STATE_PAUSED &&
+                                mModel.getCurrentState() != GameModel.STATE_GAME_OVER)
+                        {
+                            mModel.pause();
+                        }
+                        else if(mModel.getCurrentState() == GameModel.STATE_PAUSED)
+                        {
+                            mModel.unpause();
+                        }
+
+                        return true;
+                    }
+                };
+
+        guiRoot.addChild("pause", mBtnPause);
 
     }
 
@@ -351,52 +418,64 @@ public class GameView extends SGView {
                 }
             }
 
-            PointF textDimensions;
-            Point worldDimensions = mModel.getDimensions();
+            if(mModel.getCurrentState() == GameModel.STATE_GOAL)
+            {
+                mStrPlayerScore = String.valueOf(mModel.getPlayerScore());
+                mStrOpponentScore = String.valueOf(mModel.getOpponentScore());
+                mLblPlayerScore.setString(mStrPlayerScore);
+                mLblOpponentScore.setString(mStrOpponentScore);
 
-            if(mModel.getCurrentState() == GameModel.STATE_RESTART)
-            {
-                textDimensions = mFntVisitorBig.measureText(mTxtStart);
-                mTempPosition.set((worldDimensions.x - textDimensions.x) / 2, worldDimensions.y * 0.3f);
-                renderer.drawText(mTxtStart, mFntVisitorBig, mTempPosition);
-            }
-            else if(mModel.getCurrentState() == GameModel.STATE_GOAL)
-            {
+                mCtnrInfo.setIsVisible(true);
+
                 // Texto superior
-                SGText text;
+                String text;
 
                 if(mModel.getWhoScored() == GameModel.PLAYER_ID)
                 {
-                    text = mTxtPlayer;
+                    text = mStrPlayer;
                 }
                 else
                 {
-                    text = mTxtOpponent;
+                    text = mStrOpponent;
                 }
 
-                textDimensions = mFntVisitorSmall.measureText(text);
-                mTempPosition.set((worldDimensions.x - textDimensions.x) / 2, worldDimensions.y * 0.25f);
-                renderer.drawText(text, mFntVisitorSmall, mTempPosition);
+                mLblUpperInfo.setString(text);
 
                 // Texto inferior
-                textDimensions = mFntVisitorBig.measureText(mTxtScores);
-                Log.d(GameActivity.TAG, "" + textDimensions.x + "   " + textDimensions.y);
-                mTempPosition.set((worldDimensions.x - textDimensions.x) / 2, worldDimensions.y * 0.3f);
-                renderer.drawText(mTxtScores, mFntVisitorBig, mTempPosition);
+                mLblLowerInfo.setString(mStrScores);
+            }
+            else if(mModel.getCurrentState() == GameModel.STATE_RESTART)
+            {
+                mCtnrInfo.setIsVisible(true);
+                mLblUpperInfo.setString("");
+                mLblLowerInfo.setString(mStrStart);
             }
             else if(mModel.getCurrentState() == GameModel.STATE_GAME_OVER)
             {
-                textDimensions = mFntVisitorBig.measureText(mTxtGameOver);
-                mTempPosition.set((worldDimensions.x - textDimensions.x) / 2, worldDimensions.y * 0.3f);
-                renderer.drawText(mTxtGameOver, mFntVisitorBig, mTempPosition);
+                mCtnrInfo.setIsVisible(true);
+                mLblUpperInfo.setString("");
+                mLblLowerInfo.setString(mStrGameOver);
+
+                mBtnPause.setIsEnabled(false);
+            }
+            else if(mModel.getCurrentState() == GameModel.STATE_PAUSED)
+            {
+                mCtnrInfo.setIsVisible(true);
+                mLblUpperInfo.setString("");
+                mLblLowerInfo.setString(mStrPaused);
+            }
+            else
+            { // mModel.getCurrentState() == GameModel.STATE_RUNNING
+                mCtnrInfo.setIsVisible(false);
             }
 
-
+            mGui.update();
+            mGui.render();
         }
 
         renderer.endDrawing();
 
-        if(mModel.getCurrentState() == GameModel.STATE_RUNNING)
+        if(mModel.getCurrentState() != GameModel.STATE_PAUSED)
         {
             switch(mModel.getBall().getCollisionType())
             {
@@ -413,6 +492,16 @@ public class GameView extends SGView {
         }
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus)
+    {
+        if(!hasWindowFocus)
+        {
+            mModel.pause();
+        }
+    }
+
+    public SGGui            getGui() { return mGui; }
     public SGMusicPlayer getMusicPlayer() { return mMusicPlayer; }
 }
 

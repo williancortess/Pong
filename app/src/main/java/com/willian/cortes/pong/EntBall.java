@@ -11,6 +11,8 @@ import com.willian.cortes.simplegameenginev1.SGWorld;
  */
 
 public class EntBall extends SGEntity {
+    private int     mDifficultyOffset = 0;
+
     //Estados de colisao para os sons
     public static final int     COLLISION_NONE = 0;//Sem colisao
     public static final int     COLLISION_EDGE = 1;//Colicao com uma das bordas do campo
@@ -29,10 +31,11 @@ public class EntBall extends SGEntity {
     private float mSpeed;
 
     public PointF mVelocity = new PointF();
-    public EntBall(SGWorld world, PointF position, PointF dimensions)
+    public EntBall(SGWorld world, PointF position, PointF dimensions, int difficultyOffset)
     {
         super(world, GameModel.BALL_ID, "ball", position, dimensions);
 
+        mDifficultyOffset = difficultyOffset;
         //Fator de conversao de graus para radianos
         float radianFactor = (float) (Math.PI / 180);
 
@@ -76,7 +79,7 @@ public class EntBall extends SGEntity {
 
     public float calculateSpeed(int playerScore)
     {
-        float playerScoreSqr = (playerScore + 8) * (playerScore + 8);
+        float playerScoreSqr = (playerScore + 8 + mDifficultyOffset) * (playerScore + 8 + mDifficultyOffset);
         mSpeed = (playerScoreSqr / (150 + playerScoreSqr)) * MAX_SPEED;
 
         return mSpeed;
